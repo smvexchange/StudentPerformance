@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
@@ -14,7 +13,6 @@ import java.util.Objects;
 @Table(name = "LESSONS")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Lesson {
 
@@ -33,7 +31,7 @@ public class Lesson {
     private Date date;
 
     @Column
-    private Integer grade;
+    private Integer maxGrade;
 
     public Lesson(Course course, String name, Date date) {
         this.course = course;
@@ -46,12 +44,23 @@ public class Lesson {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lesson lesson = (Lesson) o;
-        return Objects.equals(id, lesson.id) && Objects.equals(course, lesson.course) && Objects.equals(name, lesson.name) && Objects.equals(date, lesson.date) && Objects.equals(grade, lesson.grade);
+        return Objects.equals(id, lesson.id) && Objects.equals(course, lesson.course) && Objects.equals(name, lesson.name) && Objects.equals(date, lesson.date) && Objects.equals(maxGrade, lesson.maxGrade);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, course, name, date, grade);
+        return Objects.hash(id, course, name, date, maxGrade);
+    }
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "id=" + id +
+                ", course=" + course +
+                ", name='" + name + '\'' +
+                ", date=" + date +
+                ", grade=" + maxGrade +
+                '}';
     }
 }
 

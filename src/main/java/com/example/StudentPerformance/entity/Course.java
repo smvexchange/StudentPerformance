@@ -5,17 +5,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "COURSES")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Course {
 
@@ -32,10 +30,10 @@ public class Course {
     private Boolean isActive;
 
     @OneToMany(targetEntity = Lesson.class, fetch = FetchType.EAGER)
-    private List<Lesson> lessons;
+    private Set<Lesson> lessons;
 
-    @OneToMany(targetEntity = Student.class, fetch = FetchType.EAGER)
-    private List<Student> students;
+    @OneToMany(mappedBy = "course")
+    private Set<CourseGrade> grades;
 
     public Course(String name) {
         this.name = name;
@@ -52,5 +50,17 @@ public class Course {
     @Override
     public int hashCode() {
         return Objects.hash(name, startDate, endDate, isActive);
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "name='" + name + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", isActive=" + isActive +
+                ", lessons=" + lessons +
+                ", grades=" + grades +
+                '}';
     }
 }

@@ -19,7 +19,7 @@ class CourseRepositoryTest {
     @Test
     public void testRepo() {
         for (int i = 0; i < 10; i++) {
-            courseRepository.save(new Course());
+            courseRepository.save(new Course("Java-"+ i));
         }
         final List<Course> found = courseRepository.findAll();
         assertEquals(10, found.size());

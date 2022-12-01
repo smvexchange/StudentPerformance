@@ -4,16 +4,15 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "STUDENTS")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Student {
 
@@ -37,8 +36,8 @@ public class Student {
     @Column
     private Boolean isActive;
 
-    @OneToOne(targetEntity = Course.class)
-    private Course course;
+    @OneToMany(mappedBy = "student")
+    private Set<CourseGrade> grades;
 
     public Student(String firstName, String lastName, String patronymic) {
         this.firstName = firstName;
@@ -57,5 +56,18 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, patronymic, groupNumber, isActive);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", groupNumber='" + groupNumber + '\'' +
+                ", isActive=" + isActive +
+                ", grades=" + grades +
+                '}';
     }
 }
