@@ -20,7 +20,7 @@ class StudentRepositoryTest {
         for (int i = 0; i < 10; i++) {
             studentRepository.save(new Student());
         }
-        final List<Student> found = studentRepository.findAll();
+        final List<Student> found = (List<Student>) studentRepository.findAll();
         assertEquals(10, found.size());
     }
 }

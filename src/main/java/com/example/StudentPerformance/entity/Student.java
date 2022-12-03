@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,8 +17,7 @@ import java.util.Set;
 public class Student {
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -37,7 +36,10 @@ public class Student {
     private Boolean isActive;
 
     @OneToMany(mappedBy = "student")
-    private Set<CourseGrade> grades;
+    private List<CourseRating> courses;
+
+    @OneToMany(mappedBy = "student")
+    private List<LessonGrade> lessons;
 
     public Student(String firstName, String lastName, String patronymic) {
         this.firstName = firstName;
@@ -67,7 +69,7 @@ public class Student {
                 ", patronymic='" + patronymic + '\'' +
                 ", groupNumber='" + groupNumber + '\'' +
                 ", isActive=" + isActive +
-                ", grades=" + grades +
+                ", grades=" + courses +
                 '}';
     }
 }

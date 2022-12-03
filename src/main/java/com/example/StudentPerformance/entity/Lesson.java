@@ -7,7 +7,9 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "LESSONS")
@@ -17,8 +19,7 @@ import java.util.Objects;
 public class Lesson {
 
     @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name = "increment", strategy = "increment")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(targetEntity = Course.class)
@@ -32,6 +33,9 @@ public class Lesson {
 
     @Column
     private Integer maxGrade;
+
+    @OneToMany(mappedBy = "lesson")
+    private List<LessonGrade> grades;
 
     public Lesson(Course course, String name, Date date) {
         this.course = course;

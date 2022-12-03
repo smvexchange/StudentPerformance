@@ -1,20 +1,21 @@
 package com.example.StudentPerformance.dto;
 
 import com.example.StudentPerformance.entity.Course;
-import com.fasterxml.jackson.annotation.JacksonInject;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-@Data
-public class LessonData {
+import java.util.Date;
 
-    @JsonProperty("Course")
+@Data
+public class LessonDTO {
+
+    @JsonProperty("course")
     private Course course;
 
-    @JsonProperty("Name")
+    @JsonProperty("name")
     private String name;
 
-    @JsonProperty("Data")
-    private Data data;
+    @JsonProperty("data")
+    private Date data;
 
 }

@@ -21,7 +21,7 @@ class LessonRepositoryTest {
         for (int i = 0; i < 10; i++) {
             lessonRepository.save(new Lesson());
         }
-        final List<Lesson> found = lessonRepository.findAll();
+        final List<Lesson> found = (List<Lesson>) lessonRepository.findAll();
         assertEquals(10, found.size());
     }
 }

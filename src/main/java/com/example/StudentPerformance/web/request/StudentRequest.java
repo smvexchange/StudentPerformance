@@ -1,16 +1,11 @@
-package com.example.StudentPerformance.dto;
+package com.example.StudentPerformance.web.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class StudentData {
-    @JsonProperty("First name")
+public class StudentRequest {
     private String firstName;
-
-    @JsonProperty("Last name")
     private String lastName;
-
-    @JsonProperty("Patronymic")
     private String patronymic;
 }

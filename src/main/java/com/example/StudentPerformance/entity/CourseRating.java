@@ -6,17 +6,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "COURSE_GRADE")
+@Table(name = "COURSE_RATINGS")
 @Getter
 @Setter
 @NoArgsConstructor
-public class CourseGrade {
+public class CourseRating {
 
     @EmbeddedId
-    private CourseGradeKey id;
+    private CourseRatingKey id;
 
     @ManyToOne
-    @MapsId("studentId")
+    @MapsId("student_id")
     @JoinColumn(name = "student_id")
     private Student student;
 
@@ -25,5 +25,9 @@ public class CourseGrade {
     @JoinColumn(name = "course_name")
     private Course course;
 
-    private int grade;
+    @Column(name = "rating")
+    private double rating;
+
+    @Column(name = "isPassed")
+    private boolean isPassed;
 }

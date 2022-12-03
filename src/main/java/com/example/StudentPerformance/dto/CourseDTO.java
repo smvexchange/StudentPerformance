@@ -6,15 +6,15 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class CourseData {
+public class CourseDTO {
 
-    @JsonProperty("Name")
+    @JsonProperty("name")
     private String name;
 
-    @JsonProperty("Start date")
+    @JsonProperty("start_date")
     private Date startDate;
 
-    @JsonProperty("End date")
+    @JsonProperty("end_date")
     private Date endDate;
 
 }

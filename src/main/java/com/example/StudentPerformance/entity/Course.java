@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,6 +19,10 @@ import java.util.Set;
 public class Course {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
     private String name;
 
     @Column
@@ -30,10 +35,10 @@ public class Course {
     private Boolean isActive;
 
     @OneToMany(targetEntity = Lesson.class, fetch = FetchType.EAGER)
-    private Set<Lesson> lessons;
+    private List<Lesson> lessons;
 
     @OneToMany(mappedBy = "course")
-    private Set<CourseGrade> grades;
+    private List<CourseRating> ratings;
 
     public Course(String name) {
         this.name = name;
@@ -60,7 +65,7 @@ public class Course {
                 ", endDate=" + endDate +
                 ", isActive=" + isActive +
                 ", lessons=" + lessons +
-                ", grades=" + grades +
+                ", grades=" + ratings +
                 '}';
     }
 }

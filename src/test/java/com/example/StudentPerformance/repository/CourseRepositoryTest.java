@@ -21,7 +21,7 @@ class CourseRepositoryTest {
         for (int i = 0; i < 10; i++) {
             courseRepository.save(new Course("Java-"+ i));
         }
-        final List<Course> found = courseRepository.findAll();
+        final List<Course> found = (List<Course>) courseRepository.findAll();
         assertEquals(10, found.size());
     }
 }
