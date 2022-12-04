@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class StudentCourseRelationDTO {
+public class StudentLessonRelationDto {
 
     @JsonProperty("student_id")
     private Long studentId;
 
-    @JsonProperty("course_name")
-    private String courseName;
+    @JsonProperty("lesson_id")
+    private Long lessonId;
 
-    @JsonProperty("rating")
-    private double rating;
+    @JsonProperty("grade")
+    private double grade;
 }

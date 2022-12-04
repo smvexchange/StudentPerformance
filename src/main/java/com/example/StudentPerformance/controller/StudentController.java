@@ -1,29 +1,37 @@
 package com.example.StudentPerformance.controller;
 
-import com.example.StudentPerformance.entity.Student;
-import jakarta.servlet.http.HttpServletResponse;
+import com.example.StudentPerformance.dto.StudentDto;
+import com.example.StudentPerformance.service.StudentService;
+import com.example.StudentPerformance.web.response.BaseResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
 
-    @PostMapping(
-            value = "/createStudent", consumes = "application/json", produces = "application/json")
-    public Student createStudent(@RequestBody Student student) {
-        return null;
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
+    @PostMapping(value = "/create",
+            consumes = "application/json",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse createStudent(@RequestBody StudentDto studentDto) {
+        return studentService.createStudent(studentDto);
     }
 
     @PostMapping(
-            value = "/updateStudent", consumes = "application/json", produces = "application/json")
-    public Student updateStudent(@RequestBody Student person, HttpServletResponse response) {
-        response.setHeader("Location", ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/findPerson/" + person.getId()).toUriString());
-
-        return null;
+            value = "/update",
+            consumes = "application/json",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse updateStudent(@RequestBody StudentDto studentDto) {
+        return studentService.updateStudent(studentDto);
     }
 }

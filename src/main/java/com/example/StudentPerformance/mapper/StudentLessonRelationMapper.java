@@ -1,13 +1,13 @@
 package com.example.StudentPerformance.mapper;
 
-import com.example.StudentPerformance.dto.StudentLessonRelationDTO;
-import com.example.StudentPerformance.web.request.StudentLessonRelationRequest;
+import com.example.StudentPerformance.dto.StudentLessonRelationDto;
+import com.example.StudentPerformance.entity.LessonGrade;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface StudentLessonRelationMapper {
 
-    StudentLessonRelationDTO studentLessonRequestToStudentLessonDto(StudentLessonRelationRequest studentLessonRelationRequest);
+    StudentLessonRelationDto entityToDto(LessonGrade lessonGrade);
 
-    StudentLessonRelationRequest studentLessonDtoToStudentLessonRequest(StudentLessonRelationDTO studentLessonRelationDTO);
+    LessonGrade dtoToEntity(StudentLessonRelationDto studentLessonRelationDto);
 }

@@ -1,41 +1,41 @@
 package com.example.StudentPerformance.mapper;
 
-import com.example.StudentPerformance.dto.CourseDTO;
-import com.example.StudentPerformance.web.request.CourseRequest;
+import com.example.StudentPerformance.dto.CourseDto;
+import com.example.StudentPerformance.entity.Course;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CourseMapperTest {
 
     private final CourseMapper mapper = Mappers.getMapper(CourseMapper.class);
 
     @Test
-    void courseRequestToCourseDto() {
-        CourseRequest courseRequest = new CourseRequest();
-        courseRequest.setName("JAVA");
-        courseRequest.setStartDate(new Date());
-        courseRequest.setEndDate(new Date());
-        CourseDTO courseDTO = mapper.courseRequestToCourseDto(courseRequest);
+    void courseToCourseDto() {
+        Course course = new Course();
+        course.setName("JAVA");
+        course.setStartDate(new Date());
+        course.setEndDate(new Date());
+        CourseDto courseDTO = mapper.entityToDto(course);
 
-        assertEquals(courseRequest.getName(), courseDTO.getName());
-        assertEquals(courseRequest.getStartDate(), courseDTO.getStartDate());
-        assertEquals(courseRequest.getEndDate(), courseDTO.getEndDate());
+        assertEquals(course.getName(), courseDTO.getName());
+        assertEquals(course.getStartDate(), courseDTO.getStartDate());
+        assertEquals(course.getEndDate(), courseDTO.getEndDate());
     }
 
     @Test
-    void courseDtoToCourseRequest() {
-        CourseDTO courseDTO = new CourseDTO();
+    void courseDtoToCourse() {
+        CourseDto courseDTO = new CourseDto();
         courseDTO.setName("JAVA");
         courseDTO.setStartDate(new Date());
         courseDTO.setEndDate(new Date());
-        CourseRequest courseRequest = mapper.courseDtoToCourseRequest(courseDTO);
+        Course course = mapper.dtoToEntity(courseDTO);
 
-        assertEquals(courseDTO.getName(), courseRequest.getName());
-        assertEquals(courseDTO.getStartDate(), courseRequest.getStartDate());
-        assertEquals(courseDTO.getEndDate(), courseRequest.getEndDate());
+        assertEquals(courseDTO.getName(), course.getName());
+        assertEquals(courseDTO.getStartDate(), course.getStartDate());
+        assertEquals(courseDTO.getEndDate(), course.getEndDate());
     }
 }

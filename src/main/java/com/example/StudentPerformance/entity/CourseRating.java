@@ -28,6 +28,6 @@ public class CourseRating {
     @Column(name = "rating")
     private double rating;
 
-    @Column(name = "isPassed")
+    @Column(name = "is_Passed")
     private boolean isPassed;
 }

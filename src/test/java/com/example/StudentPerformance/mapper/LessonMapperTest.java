@@ -1,42 +1,42 @@
 package com.example.StudentPerformance.mapper;
 
-import com.example.StudentPerformance.dto.LessonDTO;
+import com.example.StudentPerformance.dto.LessonDto;
 import com.example.StudentPerformance.entity.Course;
-import com.example.StudentPerformance.web.request.LessonRequest;
+import com.example.StudentPerformance.entity.Lesson;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LessonMapperTest {
 
     private final LessonMapper mapper = Mappers.getMapper(LessonMapper.class);
 
     @Test
-    void lessonRequestToLessonDTO() {
-        LessonRequest lessonRequest = new LessonRequest();
-        lessonRequest.setName("Core");
-        lessonRequest.setData(new Date());
-        lessonRequest.setCourse(new Course());
-        LessonDTO lessonDTO = mapper.lessonRequestToLessonDTO(lessonRequest);
+    void lessonToLessonDto() {
+        Lesson lesson = new Lesson();
+        lesson.setName("Core");
+        lesson.setDate(new Date());
+        lesson.setCourse(new Course());
+        LessonDto lessonDTO = mapper.entityToDto(lesson);
 
-        assertEquals(lessonRequest.getName(), lessonDTO.getName());
-        assertEquals(lessonRequest.getData(), lessonDTO.getData());
-        assertEquals(lessonRequest.getCourse(), lessonDTO.getCourse());
+        assertEquals(lesson.getName(), lessonDTO.getName());
+        assertEquals(lesson.getDate(), lessonDTO.getDate());
+        assertEquals(lesson.getCourse(), lessonDTO.getCourse());
     }
 
     @Test
-    void lessonDtoToLessonRequest() {
-        LessonDTO lessonDTO = new LessonDTO();
-        lessonDTO.setName("Core");
-        lessonDTO.setData(new Date());
-        lessonDTO.setCourse(new Course());
-        LessonRequest lessonRequest = mapper.lessonDtoToLessonRequest(lessonDTO);
+    void lessonDtoToLesson() {
+        LessonDto lessonDto = new LessonDto();
+        lessonDto.setName("Core");
+        lessonDto.setDate(new Date());
+        lessonDto.setCourse(new Course());
+        Lesson lesson = mapper.dtoToEntity(lessonDto);
 
-        assertEquals(lessonDTO.getName(), lessonRequest.getName());
-        assertEquals(lessonDTO.getData(), lessonRequest.getData());
-        assertEquals(lessonDTO.getCourse(), lessonRequest.getCourse());
+        assertEquals(lessonDto.getName(), lesson.getName());
+        assertEquals(lessonDto.getDate(), lesson.getDate());
+        assertEquals(lessonDto.getCourse(), lesson.getCourse());
     }
 }

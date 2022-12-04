@@ -1,9 +1,12 @@
 package com.example.StudentPerformance.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DialectOverride;
 
 import java.util.List;
 import java.util.Objects;
@@ -20,19 +23,22 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "first_name")
+    @JsonProperty("first_name")
     private String firstName;
 
-    @Column
+    @Column(name = "last_name")
+    @JsonProperty("last_name")
     private String lastName;
 
-    @Column
+    @Column(name = "patronymic")
+    @JsonProperty("patronymic")
     private String patronymic;
 
-    @Column
+    @Column(name = "group_number", columnDefinition = "varchar(255) default 'no group'")
     private String groupNumber;
 
-    @Column
+    @Column(name = "is_active", columnDefinition = "boolean default false")
     private Boolean isActive;
 
     @OneToMany(mappedBy = "student")
