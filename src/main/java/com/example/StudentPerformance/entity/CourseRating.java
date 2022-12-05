@@ -17,12 +17,12 @@ public class CourseRating {
 
     @ManyToOne
     @MapsId("student_id")
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student")
     private Student student;
 
     @ManyToOne
     @MapsId("course_name")
-    @JoinColumn(name = "course_name")
+    @JoinColumn(name = "course")
     private Course course;
 
     @Column(name = "rating")

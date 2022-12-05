@@ -1,7 +1,8 @@
 package com.example.StudentPerformance.controller;
 
-import com.example.StudentPerformance.dto.CourseDto;
-import com.example.StudentPerformance.service.CourseService;
+
+import com.example.StudentPerformance.dto.LessonDto;
+import com.example.StudentPerformance.service.LessonService;
 import com.example.StudentPerformance.web.response.BaseResponse;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,27 +11,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/course")
-public class CourseController {
+@RequestMapping("/lesson")
+public class LessonController {
 
-    private final CourseService courseService;
+    private final LessonService lessonService;
 
-    public CourseController(CourseService courseService) {
-        this.courseService = courseService;
+    public LessonController(LessonService lessonService) {
+        this.lessonService = lessonService;
     }
 
     @PostMapping(value = "/create",
             consumes = "application/json",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse createCourse(@RequestBody CourseDto courseDto) {
-        return courseService.createCourse(courseDto);
+    public BaseResponse createLesson(@RequestBody LessonDto lessonDto) {
+        return lessonService.createLesson(lessonDto);
     }
 
     @PostMapping(
             value = "/update",
             consumes = "application/json",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse updateCourse(@RequestBody CourseDto courseDto) {
-        return courseService.updateCourse(courseDto);
+    public BaseResponse updateLesson(@RequestBody LessonDto lessonDto) {
+        return lessonService.updateLesson(lessonDto);
     }
 }

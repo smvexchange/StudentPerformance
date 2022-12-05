@@ -1,7 +1,11 @@
 package com.example.StudentPerformance.dto;
 
+import com.example.StudentPerformance.entity.CourseRating;
+import com.example.StudentPerformance.entity.LessonGrade;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class StudentDto {
@@ -23,4 +27,10 @@ public class StudentDto {
 
     @JsonProperty("is_active")
     private Boolean isActive;
+
+    @JsonProperty("courses")
+    private List<CourseRating> courses;
+
+    @JsonProperty("lessons")
+    private List<LessonGrade> lessons;
 }

@@ -5,7 +5,7 @@ import com.example.StudentPerformance.entity.CourseRating;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface StudentCourseRelationMapper {
+public interface CourseRatingMapper {
 
     CourseRatingDto entityToDto(CourseRating studentCourseRelationRequest);
 

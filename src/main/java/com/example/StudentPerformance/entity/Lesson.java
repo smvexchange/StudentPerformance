@@ -4,12 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Cascade;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "LESSONS")
@@ -22,7 +21,8 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(targetEntity = Course.class)
+    @ManyToOne (targetEntity = Course.class)
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Course course;
 
     @Column

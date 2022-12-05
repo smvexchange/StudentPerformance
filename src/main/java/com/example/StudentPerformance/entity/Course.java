@@ -9,7 +9,6 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "COURSES")
@@ -34,11 +33,19 @@ public class Course {
     @Column
     private Boolean isActive;
 
-    @OneToMany(targetEntity = Lesson.class, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = Lesson.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Lesson> lessons;
 
     @OneToMany(mappedBy = "course")
     private List<CourseRating> ratings;
+
+    public void addLesson(Lesson lesson) {
+        lessons.add(lesson);
+    }
+
+    public void addCourseRating(CourseRating rating) {
+        ratings.add(rating);
+    }
 
     public Course(String name) {
         this.name = name;

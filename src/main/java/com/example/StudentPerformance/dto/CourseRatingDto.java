@@ -1,6 +1,7 @@
 package com.example.StudentPerformance.dto;
 
 import com.example.StudentPerformance.entity.Course;
+import com.example.StudentPerformance.entity.CourseRatingKey;
 import com.example.StudentPerformance.entity.Student;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -8,10 +9,13 @@ import lombok.Data;
 @Data
 public class CourseRatingDto {
 
-    @JsonProperty("student_id")
+    @JsonProperty("id")
+    private CourseRatingKey id;
+
+    @JsonProperty("student")
     private Student student;
 
-    @JsonProperty("course_name")
+    @JsonProperty("course")
     private Course course;
 
     @JsonProperty("rating")
