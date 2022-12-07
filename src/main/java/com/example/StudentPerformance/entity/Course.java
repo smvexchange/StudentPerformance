@@ -1,14 +1,13 @@
 package com.example.StudentPerformance.entity;
 
 
+import com.example.StudentPerformance.dto.LessonDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "COURSES")
@@ -40,11 +39,19 @@ public class Course {
     private List<CourseRating> ratings;
 
     public void addLesson(Lesson lesson) {
-        lessons.add(lesson);
+        if (lessons == null) {
+            lessons = new ArrayList<>();
+            lessons.add(lesson);
+        } else {
+            lessons.add(lesson);
+        }
     }
 
-    public void addCourseRating(CourseRating rating) {
-        ratings.add(rating);
+    public void updateLesson(int index, LessonDto lessonDto) {
+        if (lessons == null) {
+            throw new NoSuchElementException("Field 'lessons' in class Course is null");
+        }
+
     }
 
     public Course(String name) {

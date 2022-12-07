@@ -38,4 +38,15 @@ public class StudentService {
         studentRepository.save(studentById);
         return new BaseResponse(HttpStatus.OK.value(), "Student successfully updated.");
     }
+
+    public BaseResponse linkToCourse(StudentDto studentDto) {
+        if (studentDto.getId() == null) {
+            throw new NotFoundException("Student`s id must not be null.");
+        }
+        Student studentById = studentRepository.findById(studentDto.getId()).orElseThrow(
+                () -> new NotFoundException("Student with id " + studentDto.getId() + " not found."));
+        mapper.updateStudentFromDto(studentDto, studentById);
+        studentRepository.save(studentById);
+        return new BaseResponse(HttpStatus.OK.value(), "Student successfully updated.");
+    }
 }

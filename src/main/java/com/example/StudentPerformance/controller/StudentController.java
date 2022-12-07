@@ -34,4 +34,6 @@ public class StudentController {
     public BaseResponse updateStudent(@RequestBody StudentDto studentDto) {
         return studentService.updateStudent(studentDto);
     }
+
+
 }

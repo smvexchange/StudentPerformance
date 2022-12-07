@@ -38,7 +38,7 @@ public class Student {
     @Column(name = "is_active", columnDefinition = "boolean default false")
     private Boolean isActive;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<CourseRating> courses;
 
     @OneToMany(mappedBy = "student")

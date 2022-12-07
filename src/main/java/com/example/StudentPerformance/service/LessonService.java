@@ -12,6 +12,9 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
 @Service
 public class LessonService {
 
@@ -26,31 +29,28 @@ public class LessonService {
     }
 
     public BaseResponse createLesson(LessonDto lessonDto) {
-        if (lessonDto.getCourse() == null) {
+        if (lessonDto.getCourse().getId() == null) {
             throw new NotFoundException("Lesson don`t have association with course.");
         }
         Lesson lessonEntity = mapper.dtoToEntity(lessonDto);
-        Course course = lessonEntity.getCourse();
-        if (course.getId() != null) {
-            courseRepository.findById(course.getId()).ifPresent(element -> element.addLesson(lessonEntity));
-            courseRepository.save(course);
-            lessonRepository.save(lessonEntity);
-            return new BaseResponse(HttpStatus.OK.value(), "Lesson successfully added to course with id: " + course.getId() + ".");
-        } else {
-            courseRepository.save(course);
-            lessonRepository.save(lessonEntity);
-            return new BaseResponse(HttpStatus.OK.value(), "Lesson and course successfully created.");
-        }
+        Course course = courseRepository.findById(lessonEntity.getCourse().getId()).orElseThrow(NoSuchElementException::new);
+        course.addLesson(lessonEntity);
+        courseRepository.save(course);
+        return new BaseResponse(HttpStatus.OK.value(), "Lesson successfully added to course with id: " + course.getId() + ".");
     }
 
     public BaseResponse updateLesson(LessonDto lessonDto) {
         if (lessonDto.getId() == null) {
             throw new NotFoundException("Lesson`s id must not be null.");
         }
+        Course course = courseRepository.findById(lessonDto.getCourse().getId()).orElseThrow(NoSuchElementException::new);
+        List<Lesson> lessons = course.getLessons();
         Lesson lessonById = lessonRepository.findById(lessonDto.getId()).orElseThrow(
                 () -> new NotFoundException("Lesson with id " + lessonDto.getId() + " not found."));
+        int index = lessons.indexOf(lessonById);
         mapper.updateLessonFromDto(lessonDto, lessonById);
-        lessonRepository.save(lessonById);
+        lessons.set(index, lessonById);
+        courseRepository.save(course);
         return new BaseResponse(HttpStatus.OK.value(), "Lesson successfully updated.");
     }
 }

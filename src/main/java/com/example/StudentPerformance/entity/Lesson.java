@@ -19,19 +19,19 @@ public class Lesson {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne (targetEntity = Course.class)
-    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Course course;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "date")
     private Date date;
 
-    @Column
+    @Column(name = "max_grade")
     private Integer maxGrade;
 
     @OneToMany(mappedBy = "lesson")
