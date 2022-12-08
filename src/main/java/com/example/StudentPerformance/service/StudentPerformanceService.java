@@ -6,10 +6,9 @@ import com.example.StudentPerformance.entity.LessonGrade;
 import com.example.StudentPerformance.repository.*;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.*;
 
 @Service
 public class StudentPerformanceService {
@@ -31,11 +30,16 @@ public class StudentPerformanceService {
 
     private double getSumOfStudentGrades(Long studentId) {
         List<LessonGrade> gradeRepositoryAll = lessonGradeRepository.findAll();
-        List<LessonGrade> lessonGradeByStudentId = gradeRepositoryAll.stream().filter(lessonGrade -> Objects.equals(lessonGrade.getStudent().getId(), studentId)).toList();
+        List<LessonGrade> lessonGradeByStudentId = gradeRepositoryAll.stream()
+                .filter(lessonGrade -> Objects.equals(lessonGrade.getStudent().getId(), studentId))
+                .filter(lessonGrade -> (lessonGrade.getLesson().getDate().getTime() - new Date().getTime()) < 0)
+                .toList();
         return lessonGradeByStudentId.stream().mapToDouble(LessonGrade::getGrade).sum();
     }
 
-    public double calculateStudentRating(Long studentId, Long courseId) {
-        return getSumOfStudentGrades(studentId) / getSumOfMaxLessonGrades(courseId);
+    public BigDecimal calculateStudentRating(Long studentId, Long courseId) {
+        return BigDecimal
+                .valueOf(getSumOfStudentGrades(studentId) / getSumOfMaxLessonGrades(courseId))
+                .setScale(2, RoundingMode.HALF_UP);
     }
 }

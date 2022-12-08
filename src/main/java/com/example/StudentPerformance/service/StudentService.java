@@ -19,6 +19,8 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Service
 public class StudentService {
 
@@ -69,8 +71,18 @@ public class StudentService {
         courseRating.setRating(studentPerformanceService.calculateStudentRating(
                 courseRatingKeyDto.getStudent_id(),
                 courseRatingKeyDto.getCourse_id()));
+        courseRating.setPassed(courseRating.getRating().compareTo(BigDecimal.valueOf(0.7)) < 0);
         courseRatingRepository.save(courseRating);
 
         return new BaseResponse(HttpStatus.OK.value(), "Student successfully linked to course.");
+    }
+
+    public StudentDto getStudentInfo(Long id) {
+        if (id == 0) {
+            throw new NotFoundException("Student`s id must not be null.");
+        }
+        Student studentById = studentRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Student with id " + id + " not found."));
+        return studentMapper.entityToDto(studentById);
     }
 }

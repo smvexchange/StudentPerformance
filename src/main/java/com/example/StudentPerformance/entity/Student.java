@@ -34,15 +34,21 @@ public class Student {
     private String patronymic;
 
     @Column(name = "group_number", columnDefinition = "varchar(255) default 'no group'")
+    @JsonProperty("group_number")
     private String groupNumber;
 
     @Column(name = "is_active", columnDefinition = "boolean default false")
+    @JsonProperty("is_active")
     private Boolean isActive;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column(name = "courses")
+    @JsonProperty("courses")
     private List<CourseRating> courses;
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Column(name = "lessons")
+    @JsonProperty("lessons")
     private List<LessonGrade> lessonGrades;
 
     public void addLessonGrade(LessonGrade lessonGrade) {

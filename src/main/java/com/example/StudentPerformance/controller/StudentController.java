@@ -4,12 +4,8 @@ import com.example.StudentPerformance.dto.CourseRatingKeyDto;
 import com.example.StudentPerformance.dto.StudentDto;
 import com.example.StudentPerformance.service.StudentService;
 import com.example.StudentPerformance.web.response.BaseResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/student")
@@ -44,5 +40,8 @@ public class StudentController {
         return studentService.linkToCourse(courseRatingKeyDto);
     }
 
-
+    @GetMapping(value = "/info")
+    public StudentDto getStudentInfo(@RequestParam(value = "student_id") Long id) {
+        return studentService.getStudentInfo(id);
+    }
 }

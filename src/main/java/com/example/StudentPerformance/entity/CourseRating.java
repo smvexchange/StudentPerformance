@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "COURSE_RATINGS")
 @Getter
@@ -28,9 +30,9 @@ public class CourseRating {
 
     @Column(name = "rating")
     @ColumnDefault("0.0")
-    private double rating;
+    private BigDecimal rating;
 
-    @Column(name = "is_Passed")
+    @Column(name = "is_passed")
     @ColumnDefault("false")
     private boolean isPassed;
 }

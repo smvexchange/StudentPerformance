@@ -2,6 +2,7 @@ package com.example.StudentPerformance.entity;
 
 
 import com.example.StudentPerformance.dto.LessonDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,24 +19,31 @@ public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("id")
     private Long id;
 
-    @Column(unique = true)
+    @Column(name = "name", unique = true)
+    @JsonProperty("name")
     private String name;
 
-    @Column
+    @Column(name = "start_date")
+    @JsonProperty("start_date")
     private Date startDate;
 
-    @Column
+    @Column(name = "end_date")
+    @JsonProperty("end_date")
     private Date endDate;
 
-    @Column
+    @Column(name = "is_active")
+    @JsonProperty("is_active")
     private Boolean isActive;
 
-    @OneToMany(targetEntity = Lesson.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Lesson.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonProperty("lessons")
     private List<Lesson> lessons;
 
     @OneToMany(mappedBy = "course")
+    @JsonProperty("ratings")
     private List<CourseRating> ratings;
 
     public void addLesson(Lesson lesson) {
@@ -76,12 +84,13 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 ", isActive=" + isActive +
                 ", lessons=" + lessons +
-                ", grades=" + ratings +
+                ", ratings=" + ratings +
                 '}';
     }
 }
