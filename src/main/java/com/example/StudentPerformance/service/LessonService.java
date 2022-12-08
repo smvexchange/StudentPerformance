@@ -2,7 +2,9 @@ package com.example.StudentPerformance.service;
 
 import com.example.StudentPerformance.dto.LessonDto;
 import com.example.StudentPerformance.entity.Course;
+import com.example.StudentPerformance.entity.CourseRating;
 import com.example.StudentPerformance.entity.Lesson;
+import com.example.StudentPerformance.entity.LessonGrade;
 import com.example.StudentPerformance.mapper.LessonMapper;
 import com.example.StudentPerformance.repository.CourseRepository;
 import com.example.StudentPerformance.repository.LessonRepository;

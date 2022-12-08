@@ -1,5 +1,6 @@
 package com.example.StudentPerformance.controller;
 
+import com.example.StudentPerformance.dto.CourseRatingKeyDto;
 import com.example.StudentPerformance.dto.StudentDto;
 import com.example.StudentPerformance.service.StudentService;
 import com.example.StudentPerformance.web.response.BaseResponse;
@@ -33,6 +34,14 @@ public class StudentController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse updateStudent(@RequestBody StudentDto studentDto) {
         return studentService.updateStudent(studentDto);
+    }
+
+    @PostMapping(
+            value = "/enrollment",
+            consumes = "application/json",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse linkStudentToCourse(@RequestBody CourseRatingKeyDto courseRatingKeyDto) {
+        return studentService.linkToCourse(courseRatingKeyDto);
     }
 
 

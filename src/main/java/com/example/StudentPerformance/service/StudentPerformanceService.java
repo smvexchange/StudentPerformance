@@ -14,11 +14,14 @@ import java.util.Optional;
 @Service
 public class StudentPerformanceService {
 
-    private CourseRepository courseRepository;
-    private LessonGradeRepository lessonGradeRepository;
+    private final CourseRepository courseRepository;
+    private final LessonGradeRepository lessonGradeRepository;
 
-    private StudentPerformanceService() {
+    public StudentPerformanceService(CourseRepository courseRepository, LessonGradeRepository lessonGradeRepository) {
+        this.courseRepository = courseRepository;
+        this.lessonGradeRepository = lessonGradeRepository;
     }
+
 
     private double getSumOfMaxLessonGrades(Long courseId) throws NoSuchElementException {
         Optional<Course> courseById = courseRepository.findById(courseId);
@@ -27,7 +30,7 @@ public class StudentPerformanceService {
     }
 
     private double getSumOfStudentGrades(Long studentId) {
-        List<LessonGrade> gradeRepositoryAll = (List<LessonGrade>) lessonGradeRepository.findAll();
+        List<LessonGrade> gradeRepositoryAll = lessonGradeRepository.findAll();
         List<LessonGrade> lessonGradeByStudentId = gradeRepositoryAll.stream().filter(lessonGrade -> Objects.equals(lessonGrade.getStudent().getId(), studentId)).toList();
         return lessonGradeByStudentId.stream().mapToDouble(LessonGrade::getGrade).sum();
     }

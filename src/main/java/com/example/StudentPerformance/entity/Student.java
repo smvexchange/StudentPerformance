@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,9 +42,26 @@ public class Student {
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<CourseRating> courses;
 
-    @OneToMany(mappedBy = "student")
-    private List<LessonGrade> lessons;
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<LessonGrade> lessonGrades;
 
+    public void addLessonGrade(LessonGrade lessonGrade) {
+        if (lessonGrades == null) {
+            lessonGrades = new ArrayList<>();
+            lessonGrades.add(lessonGrade);
+        } else {
+            lessonGrades.add(lessonGrade);
+        }
+    }
+
+    public void addCourses(CourseRating courseRating) {
+        if (courses == null) {
+            courses = new ArrayList<>();
+            courses.add(courseRating);
+        } else {
+            courses.add(courseRating);
+        }
+    }
     public Student(String firstName, String lastName, String patronymic) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "COURSE_RATINGS")
@@ -16,18 +17,20 @@ public class CourseRating {
     private CourseRatingKey id;
 
     @ManyToOne
-    @MapsId("student_id")
+    @MapsId("student")
     @JoinColumn(name = "student")
     private Student student;
 
     @ManyToOne
-    @MapsId("course_name")
+    @MapsId("course")
     @JoinColumn(name = "course")
     private Course course;
 
     @Column(name = "rating")
+    @ColumnDefault("0.0")
     private double rating;
 
     @Column(name = "is_Passed")
+    @ColumnDefault("false")
     private boolean isPassed;
 }

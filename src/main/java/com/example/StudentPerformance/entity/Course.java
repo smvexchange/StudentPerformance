@@ -47,11 +47,13 @@ public class Course {
         }
     }
 
-    public void updateLesson(int index, LessonDto lessonDto) {
-        if (lessons == null) {
-            throw new NoSuchElementException("Field 'lessons' in class Course is null");
+    public void addRating(CourseRating courseRating) {
+        if (ratings == null) {
+            ratings = new ArrayList<>();
+            ratings.add(courseRating);
+        } else {
+            ratings.add(courseRating);
         }
-
     }
 
     public Course(String name) {
